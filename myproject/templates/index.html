@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Projet Django</title>
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Vendor CSS -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center">
+        <h1>MonSite</h1>
+      </a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/counter">Compteur</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="/logout">Logout ({{ user.username }})</a></li>
+          {% else %}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h2>Bienvenue {{ name }} !</h2>
+          <p>Votre application Django avec Bootstrap</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Features Section ======= -->
+  <section id="features" class="features sections-bg">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h2>Fonctionnalités</h2>
+      </div>
+      <div class="row">
+        {% for feature in features %}
+        <div class="col-md-4 mb-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ feature.name }}</h5>
+              <p class="card-text">{{ feature.details }}</p>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+          <p class="text-center">Aucune fonctionnalité pour l'instant. 
+          <a href="/admin">Ajoutez-en via l'admin.</a></p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Compteur de Mots ======= -->
+  <section id="counter" class="contact sections-bg">
+    <div class="container">
+      <div class="section-header text-center mb-4">
+        <h2>Compteur de Mots</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <form method="POST" action="/counter">
+            {% csrf_token %}
+            <div class="mb-3">
+              <textarea class="form-control" name="text" rows="5" 
+                        placeholder="Entrez votre texte ici..."></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Compter les mots</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="container text-center">
+      <p>© 2026 Mon Projet Django — FST Tanger</p>
+    </div>
+  </footer>
+
+  <!-- Vendor JS -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>
